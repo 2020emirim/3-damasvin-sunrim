@@ -5,6 +5,11 @@
     <title>Drink Update</title>
 </head>
 <body>
-
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Modify</button>
+            <button type="button" onclick="history.back()">Cancel</button>
+        </form>
 </body>
 </html>
