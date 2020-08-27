@@ -3,6 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>Order Add</title>
+    <script>
+        window.onload = function () {
+            let drink_price = {{ drink_price }}
+            let stock = document.querySelector('#id_stock')
+            let cup = document.querySelector('#id_cup')
+            let price = document.querySelector('#id_price')
+            stock.addEventListener('change', () => setPrice())
+            cup.addEventListener('change', () => setPrice())
+
+            function setPrice() {
+                let total_price = drink_price * stock.value
+                if (cup.value == 1){
+                    total_price += 500 * stock.value
+                }
+                price.value = total_price
+            }
+        }
+    </script>
 </head>
 <body>
 <form action="" method="post">
