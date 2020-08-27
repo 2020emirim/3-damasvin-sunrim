@@ -26,13 +26,25 @@ class OrderCreateView(CreateView):
 def get_initial(self):
     initial = super().get_initial()
     initial['drink'] = self.kwargs.get('menu_id')
+    initial['price'] = Drink.objects.get(id=self.kwargs.get('menu_id')).price
     return initial
+
+def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+    context['drink_price'] = Drink.objects.get(id=self.kwargs['menu_id']).price
+    return context
 
 class OrderUpdateView(UpdateView):
     model = Order
     fields = '__all__'
     template_name_suffix = '_update'
     success_url = reverse_lazy('order:list')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['drink_price'] = Order.objects.get(id=self.kwargs['pk']).drink.price
+        return context
+
 
 def order_delete(request, pk):
     order = Order.objects.get(id=pk)
