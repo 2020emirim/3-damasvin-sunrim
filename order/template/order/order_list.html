@@ -16,14 +16,32 @@
     </thead>
     <tbody>
     {% for order in order_list %}
-    <tr>
-        <td>{{ forloop.counter }}</td>
-         <td>{{ order }}</td>
-        <td><a href="{% url 'order:update' pk=order.id %}">Modify</a></td>
-        <td><a href="{% url 'order:delete' pk=order.id %}">Delete</a></td>
-    </tr>
+     <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ order }}</td>
+            <td><a href="{% url 'order:update' pk=order.id %}">Modify</a></td>
+            <td><a href="{% url 'order:delete' pk=order.id %}">Delete</a></td>
+     </tr>
     {% endfor %}
+     {% if total_price != None %}
+        <tr>
+            <td colspan="2" style="background-color: darkseagreen">총 금 액</td>
+            <td colspan="2" style="background-color: darkseagreen">{{ total_price }}</td>
+        </tr>
+    {% endif %}
     </tbody>
 </table>
+<div id="menu">
+Menu
+    <table>
+        <tbody>
+        <tr>
+            {% for menu in menu_list %}
+                <td><a href="{% url 'order:add' menu_id=menu.id %}">{{ menu }}</a></td>
+            {% endfor %}
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>
