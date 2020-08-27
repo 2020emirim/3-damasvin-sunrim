@@ -1,15 +1,14 @@
-from django.conf import settings
-from django.conf.urls.static import static
-from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
+
+from menu.views import DrinkListView, CoffeeCreateView, BubbleteaCreateView, DrinkUpdateView, DrinkDeleteView
+
 app_name = 'menu'
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('menu/', include('menu.urls')),
-    path('order/', include('order.urls')),
-    path('', include('order.urls')),
+    path('', DrinkListView.as_view(), name='list'),
+    path('add_coffee/', CoffeeCreateView.as_view(), name='add_coffee'),
+    path('add_bubbletea/', BubbleteaCreateView.as_view(), name='add_bubbletea'),
+    path('update/<int:pk>/', DrinkUpdateView.as_view(), name='update'),
+    path('delete/<int:pk>/', DrinkDeleteView.as_view(), name='delete'),
+
 ]
-
-
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
