@@ -38,3 +38,12 @@ def order_delete(request, pk):
     order = Order.objects.get(id=pk)
     order.delete()
     return redirect('order:list')
+
+class OrderResultView(ListView):
+    model = Order
+    template_name_suffix = '_result'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['total_price'] = Order.objects.all().aggregate(total_price=Sum('price')).get('total_price', 0)
+        return context
