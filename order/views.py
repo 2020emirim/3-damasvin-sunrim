@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-
+from django.db.models import Sum
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView
@@ -14,6 +14,7 @@ class OrderListView(ListView):
 def get_context_data(self, *, object_list=None, **kwargs):
     context = super().get_context_data(**kwargs)
     context['menu_list'] = Drink.objects.all()
+    context['total_price'] = Order.objects.all().aggregate(total_price=Sum('price')).get('total_price', 0)
     return context
 
 class OrderCreateView(CreateView):
