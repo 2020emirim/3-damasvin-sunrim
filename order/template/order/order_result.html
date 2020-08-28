@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Result</title>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>image</th>
+        <th>Drink</th>
+        <th>Modify</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for order in order_list %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ order }}</td>
+            <td><a href="{% url 'order:update' pk=order.id %}">Modify</a></td>
+            <td><a href="{% url 'order:delete' pk=order.id %}">Delete</a></td>
+        </tr>
+    {% endfor %}
+    {% if total_price != None %}
+        <tr>
+            <td colspan="2" style="background-color: darkseagreen">총 금 액</td>
+            <td colspan="2" style="background-color: darkseagreen">{{ total_price }}</td>
+        </tr>
+    {% endif %}
+    <tr>
+        <td colspan="2"><a href="{% url 'order:pay' %}">지불하기</a></td>
+        <td colspan="2"><button type="button" onclick="history.back()">Cancel</button></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Drink Confirm Delete</title>
+</head>
+<body>
+    <h1>{{ drink }}</h1>
+    {% if drink.image != '' %}
+    <img src="{{ drink.image.url }}" alt="" style="height:200px">
+    {% endif %}
+    <form action = "" method="post">
+        {% csrf_token %}
+        <button type="submit">Delete</button>
+        <button type="button" onclick="history.back()">Cancel</button>
+    </form>
+</body>
+</html>

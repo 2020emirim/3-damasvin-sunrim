@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Drink List</title>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>image</th>
+        <th>Drink</th>
+        <th>Modify</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for drink in drink_list %}
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        {% if drink.image != '' %}
+        <td><img src="{{ drink.image.url }}" alt="아메리카노" width="100px"></td>
+        {% else %}
+        <td>-----</td>
+        {% endif %}
+        <td>{{ drink }}</td>
+        <td><a href="{% url 'menu:update' pk=drink.id %}">Modify</a></td>
+        <td><a href="{% url 'menu:delete' pk=drink.id %}">Delete</a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<a href="{% url 'menu:add_coffee'%}">Add Coffee</a>
+<a href="{% url 'menu:add_bubbletea'%}">Add Bubbletea</a>
+</body>
+</html>
